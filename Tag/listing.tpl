@@ -1,5 +1,5 @@
 <div fx:template="tag_list" fx:of="tag:list" fx:name="Tag list" class="tag_list">
-    <span fx:item class="tag">
+    <span fx:item class="tag {if $is_active}tag_active{/if}">
         <a style="white-space:nowrap;" href="{$url}">{$name}</a>
     </span>
 </div>
