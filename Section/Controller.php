@@ -25,9 +25,9 @@ class Controller extends \Floxim\Main\Page\Controller
                 break;
         }
         if ($submenu_type !== 'none') {
-            $this->onItemsReady(function ($items, $ctr) {
-                foreach ($items as $item) {
-                    $ctr->acceptContent(array(
+            $this->onItemsReady(function ($e) {
+                foreach ($e['items'] as $item) {
+                    $e['controller']->acceptContent(array(
                         'title'     => fx::alang('Add subsection', 'component_section'),
                         'parent_id' => $item['id']
                     ), $item);
@@ -40,7 +40,9 @@ class Controller extends \Floxim\Main\Page\Controller
 
     public function doList()
     {
-        $this->onItemsReady(function ($items, $ctr) {
+        $this->onItemsReady(function ($e) {
+            $ctr = $e['controller'];
+            $items = $e['items'];
             $extra_ibs = $ctr->getParam('extra_infoblocks', array());
             if (is_array($extra_ibs) && count($extra_ibs) > 0) {
                 foreach ($extra_ibs as $extra_ib_id) {
@@ -71,8 +73,9 @@ class Controller extends \Floxim\Main\Page\Controller
         return parent::doList();
     }
 
-    protected function addSubmenuItems($items)
+    protected function addSubmenuItems($e)
     {
+        $items = $e['items'];
         $submenu_type = $this->getParam('submenu');
         if ($submenu_type === 'none') {
             return;
@@ -92,8 +95,8 @@ class Controller extends \Floxim\Main\Page\Controller
 
     public function doListSelected()
     {
-        $this->onItemsReady(function ($items, $ctr) {
-            $ctr->setParam('extra_root_ids', $items->getValues('id'));
+        $this->onItemsReady(function ($e) {
+            $e['controller']->setParam('extra_root_ids', $e['items']->getValues('id'));
         });
         $this->onItemsReady(array($this, 'addSubmenuItems'));
         return parent::doListSelected();
@@ -113,7 +116,8 @@ class Controller extends \Floxim\Main\Page\Controller
             return;
         }
         if (isset($path[1])) {
-            $this->listen('query_ready', function ($q) use ($path, $source) {
+            $this->listen('query_ready', function ($e) use ($path, $source) {
+                $q = $e['query'];
                 $q->where('parent_id', $path[1]->get('id'))->where('infoblock_id', $source);
             });
         }
