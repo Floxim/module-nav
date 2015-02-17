@@ -5,7 +5,7 @@
     class="deep_menu">
         {css}deep.css{/css}
         {apply recursive_menu with $lv = 1 /}
-        <ul fx:template="recursive_menu" fx:with-each="$items">
+        <ul fx:template="recursive_menu" fx:with-each="$items" class="deep_menu_level">
             <li fx:item class="menu_item_{$lv}">
                 <a href="{$url}" {if $is_active}class="active"{/if}>{$name}</a>
                 {call recursive_menu with $items = $submenu, $lv = $lv+1 /}

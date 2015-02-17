@@ -43,34 +43,49 @@ class Controller extends \Floxim\Main\Page\Controller
         $this->onItemsReady(function ($e) {
             $ctr = $e['controller'];
             $items = $e['items'];
-            $extra_ibs = $ctr->getParam('extra_infoblocks', array());
-            if (is_array($extra_ibs) && count($extra_ibs) > 0) {
-                foreach ($extra_ibs as $extra_ib_id) {
-                    if (is_numeric($extra_ib_id)) {
-                        $extra_ib = fx::data('infoblock', $extra_ib_id);
-                        if ($extra_ib) {
-                            $extra_q = $extra_ib
+            $extra_ib_ids = (array) $ctr->getParam('extra_infoblocks', array());
+            $extra_ibs = fx::data('infoblock')->where('id', $extra_ib_ids, 'in')->all();
+            foreach ($extra_ibs as $extra_ib) {
+                $extra_q = $extra_ib
                                 ->initController()
                                 ->getFinder()
-                                ->where('infoblock_id', $extra_ib_id);
-                            $extra_items = $extra_q->all();
-                            $items->concat($extra_items);
-                        }
-                    }
-                }
+                                ->where('infoblock_id', $extra_ib['id']);
+                $extra_items = $extra_q->all();
+                $items->concat($extra_items);
             }
-            $items->unique();
-            $extra_roots = $ctr->getParam('extra_root_ids');
-            if (!$extra_roots) {
-                $extra_roots = array();
+            if (!$this->getParam('is_fake')) {
+                $items->unique();
             }
-            if (count($items) > 0) {
-                fx::data('page')
-                    ->makeTree($items, 'submenu', $extra_roots)
-                    ->addFilter('parent_id', $items->first()->get('parent_id'));
+            if (count($items) === 0) {
+                return;
             }
+            $parent_ids = array_unique($items->getValues('parent_id'));
+            if (count($parent_ids) < 2) {
+                return;
+            }
+            $e['items'] = fx::tree($items, 'submenu', $ctr->getParam('extra_root_ids', array()));
         });
         return parent::doList();
+    }
+    
+    protected function getFakeItems($count = 4) {
+        $items = parent::getFakeItems(4);
+        $items[1]['is_active'] = true;
+        $submenu = $this->getParam('submenu');
+        if ($submenu === 'none') {
+            return $items;
+        }
+        if ($submenu === 'active') {
+            $items[1]['submenu'] = parent::getFakeItems(rand(2, 4));
+            return $items;
+        }
+        if ($submenu === 'all') {
+            foreach ($items as $i) {
+                $count = rand(0, 4);
+                $i['submenu'] = $count === 0 ? fx::collection() : parent::getFakeItems($count);
+            }
+            return $items;
+        }
     }
 
     protected function addSubmenuItems($e)
