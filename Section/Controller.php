@@ -53,7 +53,7 @@ class Controller extends \Floxim\Main\Page\Controller
                 $extra_items = $extra_q->all();
                 $items->concat($extra_items);
             }
-            if (!$this->getParam('is_fake')) {
+            if (!$ctr->getParam('is_fake')) {
                 $items->unique();
             }
             if (count($items) === 0) {
