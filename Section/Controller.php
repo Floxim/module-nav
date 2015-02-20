@@ -57,10 +57,12 @@ class Controller extends \Floxim\Main\Page\Controller
                 $items->unique();
             }
             if (count($items) === 0) {
-                return;
+                //return;
             }
             $parent_ids = array_unique($items->getValues('parent_id'));
             if (count($parent_ids) < 2) {
+                //fx::log('notatree', $ctr->getParam('parent_id'), $ctr->getParentId());
+                $e['items']->addFilter('parent_id', $ctr->getParentId());
                 return;
             }
             $e['items'] = fx::tree($items, 'submenu', $ctr->getParam('extra_root_ids', array()));
