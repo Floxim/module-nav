@@ -29,4 +29,12 @@ class Entity extends \Floxim\Nav\Section\Entity
         $forced []= 'linked_page_id';
         return $forced;
     }
+    
+    public function isActive() {
+        $linked = $this['linked_page'];
+        if ($linked['url'] == '/') {
+            return $linked['is_current'];
+        }
+        return $linked['is_active'];
+    }
 }
