@@ -9,9 +9,14 @@ class Controller extends \Floxim\Main\Page\Controller
 
     public function doListInfoblock()
     {
-        $c_page_id = fx::env('page')->get('id');
-        $path = fx::env('page')->getParentIds();
-        $path [] = $c_page_id;
+        $c_page = fx::env('page');
+        if ($c_page) {
+            $c_page_id = $c_page->get('id');
+            $path = $c_page->getParentIds();
+            $path [] = $c_page_id;
+        } else {
+            $path = array();
+        }
         $submenu_type = $this->getParam('submenu');
         switch ($submenu_type) {
             case 'none':
@@ -61,7 +66,6 @@ class Controller extends \Floxim\Main\Page\Controller
             }
             $parent_ids = array_unique($items->getValues('parent_id'));
             if (count($parent_ids) < 2) {
-                //fx::log('notatree', $ctr->getParam('parent_id'), $ctr->getParentId());
                 $e['items']->addFilter('parent_id', $ctr->getParentId());
                 return;
             }
