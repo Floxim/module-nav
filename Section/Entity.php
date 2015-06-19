@@ -5,18 +5,24 @@ use Floxim\Floxim\System\Fx as fx;
 
 class Entity extends \Floxim\Main\Page\Entity
 {
-    public function getAvailParentsFinder()
+    public function getAvailParentsFinder($ib = null)
     {
-        $f = parent::getAvailParentsFinder();
-        $our_infoblock = fx::data('infoblock', $this['infoblock_id']);
+        $f = parent::getAvailParentsFinder($ib);
+        if (!$f) {
+            return;
+        }
+        if (!$ib) {
+            $ib = fx::data('infoblock', $this['infoblock_id']);
+        }
+        
         $f->whereOr(
-            array('infoblock_id', $this['infoblock_id']),
-            array('id', $our_infoblock['page_id'])
+            array('infoblock_id', $ib['id']),
+            array('id', $ib['page_id'])
         );
         return $f;
     }
-
-    public function getFormFieldParentId($field)
+    
+    public function getFormFieldParentId($field = null)
     {
         $ib = fx::data('infoblock', $this['infoblock_id']);
         if (!$ib['params']['submenu'] || $ib['params']['submenu'] == 'none') {
