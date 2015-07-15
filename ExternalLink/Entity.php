@@ -19,7 +19,7 @@ class Entity extends \Floxim\Nav\Section\Entity
     
     public function getForcedEditableFields(){
         $forced = parent::getForcedEditableFields();
-        $forced []= 'external_url';
+        array_unshift($forced, 'external_url');
         return $forced;
     }
 }

@@ -26,7 +26,7 @@ class Entity extends \Floxim\Nav\Section\Entity
     
     public function getForcedEditableFields() {
         $forced = parent::getForcedEditableFields();
-        $forced []= 'linked_page_id';
+        array_unshift($forced, 'linked_page_id');
         return $forced;
     }
     

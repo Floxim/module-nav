@@ -70,7 +70,11 @@ return array(
             }
         ),
         'list_infoblock' => array(
-            'name' => fx::alang('Menu', 'component_section')
+            'name' => fx::alang('Menu', 'component_section'),
+            'default_scope' => function() {
+                $ds = fx::env('site')->get('index_page_id').'-descendants-';
+                return $ds;
+            }
         ),
         'breadcrumbs' => array(
             'icon' => 'Nav',

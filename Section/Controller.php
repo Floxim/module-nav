@@ -64,11 +64,11 @@ class Controller extends \Floxim\Main\Page\Controller
             if (count($items) === 0) {
                 //return;
             }
-            $parent_ids = array_unique($items->getValues('parent_id'));
+            $parent_ids = array_unique($items->find('parent_id', '', '!=')->getValues('parent_id'));
             if (count($parent_ids) < 2) {
-                if ($this->action === 'list_infoblock') {
-                    $e['items']->addFilter('parent_id', $ctr->getParentId());
-                }
+                //if ($this->action === 'listInfoblock') {
+                $e['items']->addFilter('parent_id', $ctr->getParentId());
+                //}
                 return;
             }
             $e['items'] = fx::tree($items, 'submenu', $ctr->getParam('extra_root_ids', array()));
