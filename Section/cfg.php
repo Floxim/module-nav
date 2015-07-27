@@ -16,7 +16,9 @@ return array(
                 '!create_record_ib' => false,
                 '!sorting' => 'manual',
                 '!sorting_dir' => 'asc',
-                '!pagination' => false
+                '!pagination' => false,
+                '!extra_infoblocks' => null,
+                '!submenu' => 'none'
             ),
             'settings' => array(
             	'submenu' => array(

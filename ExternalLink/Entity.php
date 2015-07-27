@@ -5,7 +5,8 @@ use Floxim\Floxim\System\Fx as fx;
 
 class Entity extends \Floxim\Nav\Section\Entity 
 {
-    public function getFormFields() {
+    public function getFormFields() 
+    {
         $ff = parent::getFormFields();
         $ff->findRemove('id', array('url', 'title', 'description', 'h1'))->apply(function(&$f) {
             $f['tab'] = 0;
@@ -13,13 +14,30 @@ class Entity extends \Floxim\Nav\Section\Entity
         return $ff;
     }
     
-    public function _getUrl() {
+    public function _getUrl() 
+    {
         return $this['external_url'];
     }
     
-    public function getForcedEditableFields(){
+    public function getForcedEditableFields()
+    {
         $forced = parent::getForcedEditableFields();
         array_unshift($forced, 'external_url');
         return $forced;
+    }
+    
+    public function hasPage() 
+    {
+        return false;
+    }
+    
+    public function getDefaultPublishState() 
+    {
+        return true;
+    }
+    
+    public function isAvailableInSelectedBlock() 
+    {
+        return false;
     }
 }
