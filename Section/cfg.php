@@ -11,7 +11,7 @@ return array(
         '*list*' => array(
             'icon' => 'Nav',
             'defaults' => array(
-            	'!parent_type' => 'mount_page_id',
+            	'!is_pass_through' => true,
                 '!limit' => 0,
                 '!create_record_ib' => false,
                 '!sorting' => 'manual',
