@@ -8,9 +8,7 @@ class Entity extends \Floxim\Nav\Section\Entity
     public function getFormFields() 
     {
         $ff = parent::getFormFields();
-        $ff->findRemove('id', array('url', 'title', 'description', 'h1'))->apply(function(&$f) {
-            $f['tab'] = 0;
-        });
+        $ff->findRemove('id', array('url', 'title', 'description', 'h1'));
         return $ff;
     }
     
