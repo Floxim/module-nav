@@ -5,6 +5,16 @@ use Floxim\Floxim\System\Fx as fx;
 
 class Entity extends \Floxim\Main\Page\Entity
 {
+    public function getFormFields() 
+    {
+        
+        $ff = parent::getFormFields();
+        if (in_array($this['type'], array('floxim.nav.page_alias', 'floxim.nav.external_link'))) {
+            $ff->findRemove('id', array('url', 'title', 'description', 'h1', 'meta', 'full_text'));
+        }
+        return $ff;
+    }
+    
     public function getAvailParentsFinder($ib = null)
     {
         $f = parent::getAvailParentsFinder($ib);

@@ -5,12 +5,6 @@ use Floxim\Floxim\System\Fx as fx;
 
 class Entity extends \Floxim\Nav\Section\Entity 
 {
-    public function getFormFields() 
-    {
-        $ff = parent::getFormFields();
-        $ff->findRemove('id', array('url', 'title', 'description', 'h1'));
-        return $ff;
-    }
     
     public function _getUrl() 
     {
