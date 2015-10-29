@@ -10,7 +10,7 @@ class Entity extends \Floxim\Nav\Section\Entity
     {
         $url = $this['external_url'];
         $url = trim($url);
-        if (!preg_match("~^(http|https|ftp)://~i", $url) && !preg_match("~^mailto:~i", $url)) {
+        if (!preg_match("~^(http|https|ftp)://~i", $url) && !preg_match("~^mailto:~i", $url) && !preg_match("~^(/|\#)~", $url)) {
             $url = 'http://'.$url;
         }
         return $url;
