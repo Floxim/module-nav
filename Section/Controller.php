@@ -173,7 +173,7 @@ class Controller extends \Floxim\Main\Page\Controller
         $pages = fx::data('section')->where('site_id', fx::env('site_id'))->all();
         $additional_parent_ids = array_diff($pages->getValues('parent_id'), $pages->getValues('id'));
         $additional_parent_ids = array_unique($additional_parent_ids);
-        $pages_add = fx::data('content')->where('id', $additional_parent_ids)->all();
+        $pages_add = fx::data('floxim.main.content')->where('id', $additional_parent_ids)->all();
 
         return $pages_add->concat($pages);
     }

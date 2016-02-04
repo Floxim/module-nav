@@ -36,7 +36,7 @@ class Entity extends \Floxim\Main\Page\Entity
     {
         $ib = fx::data('infoblock', $this['infoblock_id']);
         if (!$ib['params']['submenu'] || $ib['params']['submenu'] == 'none') {
-            return;
+            //return;
         }
         return parent::getFormFieldParentId($field);
     }

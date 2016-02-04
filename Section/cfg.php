@@ -3,7 +3,7 @@
 use Floxim\Floxim\System\Fx as fx;
 
 $source_ibs = fx::data('infoblock')
-    ->getContentInfoblocks('section')
+    ->getContentInfoblocks('floxim.nav.section')
     ->find('site_id', fx::env('site')->get('id'))
     ->getValues('name', 'id');
 return array(
