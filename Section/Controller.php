@@ -29,16 +29,6 @@ class Controller extends \Floxim\Main\Page\Controller
                 $this->setParam('parent_id', false);
                 break;
         }
-        if ($submenu_type !== 'none') {
-            $this->onItemsReady(function ($e) {
-                foreach ($e['items'] as $item) {
-                    $e['controller']->acceptContent(array(
-                        'title'     => fx::alang('Add subsection', 'component_section'),
-                        'parent_id' => $item['id']
-                    ), $item);
-                }
-            });
-        }
         $res = parent::doListInfoblock();
         return $res;
     }
@@ -176,5 +166,41 @@ class Controller extends \Floxim\Main\Page\Controller
         $pages_add = fx::data('floxim.main.content')->where('id', $additional_parent_ids)->all();
 
         return $pages_add->concat($pages);
+    }
+    
+    public function getParentConfigFields()
+    {
+        $res = parent::getParentConfigFields();
+        $vals = array();
+        foreach ($res['parent_type']['values'] as $vv) {
+            if ($vv[0] !== 'current_page') {
+                $vals []= $vv;
+            }
+        }
+        $res['parent_type']['values']= $vals;
+        return $res;
+    }
+    
+    public function getParentFinderConditions() {
+        $conds = parent::getParentFinderConditions();
+        $ib = $this->getInfoblock();
+        if (!is_numeric($ib['params']['parent_type'])) {
+            return $conds;
+        }
+        return array(
+            array(
+                $conds,
+                array(
+                    array(
+                        array('infoblock_id', $this->getInfoblock()->get('id')),
+                        array('id', $ib['params']['parent_type'])
+                    ),
+                    null,
+                    'or'
+                )
+            ),
+            null,
+            'and'
+        );
     }
 }

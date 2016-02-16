@@ -15,23 +15,6 @@ class Entity extends \Floxim\Main\Page\Entity
         return $ff;
     }
     
-    public function getAvailParentsFinder($ib = null)
-    {
-        $f = parent::getAvailParentsFinder($ib);
-        if (!$f) {
-            return;
-        }
-        if (!$ib) {
-            $ib = fx::data('infoblock', $this['infoblock_id']);
-        }
-        
-        $f->whereOr(
-            array('infoblock_id', $ib['id']),
-            array('id', $ib['page_id'])
-        );
-        return $f;
-    }
-    
     public function getFormFieldParentId($field = null)
     {
         $ib = fx::data('infoblock', $this['infoblock_id']);
