@@ -5,6 +5,7 @@ use Floxim\Floxim\System\Fx as fx;
 
 class Entity extends \Floxim\Main\Page\Entity
 {
+    /*
     public function getFormFields() 
     {
         
@@ -23,4 +24,6 @@ class Entity extends \Floxim\Main\Page\Entity
         }
         return parent::getFormFieldParentId($field);
     }
+     * 
+     */
 }

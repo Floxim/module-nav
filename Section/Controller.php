@@ -184,23 +184,18 @@ class Controller extends \Floxim\Main\Page\Controller
     public function getParentFinderConditions() {
         $conds = parent::getParentFinderConditions();
         $ib = $this->getInfoblock();
-        if (!is_numeric($ib['params']['parent_type'])) {
+        if (!is_numeric($ib['params']['parent_id'])) {
             return $conds;
         }
-        return array(
+        $res = array(
             array(
                 $conds,
-                array(
-                    array(
-                        array('infoblock_id', $this->getInfoblock()->get('id')),
-                        array('id', $ib['params']['parent_type'])
-                    ),
-                    null,
-                    'or'
-                )
+                array('infoblock_id', $this->getInfoblock()->get('id')),
+                array('id', $ib['params']['parent_id'])
             ),
             null,
-            'and'
+            'or'
         );
+        return $res;
     }
 }
