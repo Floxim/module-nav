@@ -18,6 +18,7 @@ class Controller extends \Floxim\Main\Page\Controller
             $path = array();
         }
         $submenu_type = $this->getParam('submenu');
+        $submenu_type = 'all';
         switch ($submenu_type) {
             case 'none':
                 break;
@@ -50,16 +51,6 @@ class Controller extends \Floxim\Main\Page\Controller
             }
             if (!$ctr->getParam('is_fake')) {
                 $items->unique();
-            }
-            if (count($items) === 0) {
-                //return;
-            }
-            $parent_ids = array_unique($items->find('parent_id', '', '!=')->getValues('parent_id'));
-            if (count($parent_ids) < 2) {
-                //if ($this->action === 'listInfoblock') {
-                $e['items']->addFilter('parent_id', $ctr->getParentId());
-                //}
-                return;
             }
             $e['items'] = fx::tree($items, 'submenu', $ctr->getParam('extra_root_ids', array()));
         });
@@ -147,6 +138,9 @@ class Controller extends \Floxim\Main\Page\Controller
         } else {
             $pages = $entity_page->getPath();
         }
+        if (fx::isAdmin()) {
+            $pages->show_hidden_items = true;
+        }
         return array('items' => $pages);
     }
 
@@ -182,7 +176,6 @@ class Controller extends \Floxim\Main\Page\Controller
     }
     
     public function getParentFinderConditions() {
-        //$conds = parent::getParentFinderConditions();
         $ib = $this->getInfoblock();
         if ($ib['params']['parent_type'] === 'certain_page' && $ib['params']['parent_id']) {
             $root_id = $ib['params']['parent_id'];
