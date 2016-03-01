@@ -112,6 +112,7 @@ class Controller extends \Floxim\Main\Page\Controller
         return parent::doListFiltered();
     }
 
+    /*
     public function doListSubmenu()
     {
         $source = $this->getParam('source_infoblock_id');
@@ -127,7 +128,8 @@ class Controller extends \Floxim\Main\Page\Controller
         }
         return $this->doList();
     }
-
+    */
+    
     public function doBreadcrumbs()
     {
         $entity_page = fx::env('page');
