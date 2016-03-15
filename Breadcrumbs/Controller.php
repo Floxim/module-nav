@@ -7,7 +7,7 @@ class Controller extends \Floxim\Floxim\Controller\Widget
 {
     public function doShow()
     {
-        $path = fx::env()->getPath();
+        $path = fx::env()->getPath()->copy();
         $this->assign('items', $path);
     }
 }
