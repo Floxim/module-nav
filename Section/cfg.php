@@ -17,7 +17,7 @@ return array(
                 '!sorting' => 'manual',
                 '!sorting_dir' => 'asc',
                 '!pagination' => false,
-                '!extra_infoblocks' => null,
+                //'!extra_infoblocks' => null,
                 '!submenu' => 'none'
             ),
             'settings' => array(
@@ -33,7 +33,7 @@ return array(
                 ),
                 'extra_infoblocks' => array(
                     'name' => 'extra_infoblocks',
-                    'label' => 'Add items from',
+                    'label' => 'Добавить ссылки из другого блока',
                     'type' => 'livesearch',
                     'is_multiple' => true, 
                     'ajax_preload' => true,
