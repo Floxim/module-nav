@@ -1,9 +1,17 @@
-<div fx:b="breadcrumbs style_{$breadcrumbs_style}" fx:template="breadcrumbs" fx:of="show">
-    {@breadcrumbs_style type="style" mask="breadcrumbs_style_*" /}
-    {each $items.slice(0,-1)}
-        <a href="{$url}" fx:e="link">{$name}</a>
-        <span fx:e="separator">{%sep} / {/%}</span>
-    {/each}
-    {set $last_item = $items.last() /}
-    {apply floxim.ui.header:header with $header = $last_item.name, $level = 1 /}
+<div 
+    fx:b="breadcrumbs"
+    fx:styled
+    fx:template="breadcrumbs" 
+    fx:of="show">
+    
+    {if count($items) > 1}
+        <span fx:e="item" fx:each="range(0, count($items) - 2) as $n">
+            <a fx:with="$items[$n]" href="{$url}" fx:e="link">{$name}</a>
+            <span fx:e="separator">{%sep} / {/%}</span>
+        </span>
+    {/if}
+    
+    <div fx:with="$items.last()">
+        {apply floxim.ui.header:header with $header = $name, $level = 1 /}
+    </div>
 </div>
