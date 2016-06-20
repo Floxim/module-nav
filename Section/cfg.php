@@ -21,6 +21,7 @@ return array(
                 '!submenu' => 'none'
             ),
             'settings' => array(
+                /*
             	'submenu' => array(
                     'name' => 'submenu',
                     'label' => fx::alang('Subsections','component_section'),
@@ -31,6 +32,7 @@ return array(
                         'all' => fx::alang('Show for all items','component_section')
                     )
                 ),
+                */
                 'extra_infoblocks' => array(
                     'name' => 'extra_infoblocks',
                     'label' => 'Добавить ссылки из другого блока',
@@ -57,6 +59,7 @@ return array(
                 )
             ),
         ),
+        /*
         '*list_submenu*' => array(
             'name' => 'Submenu',
             'icon_extra' => 'sub',
@@ -71,6 +74,7 @@ return array(
                 return count(fx::env('page')->getParentIds()) > 0;
             }
         ),
+        */
         'list_infoblock' => array(
             'name' => fx::alang('Menu', 'component_section'),
             'default_scope' => function() {
