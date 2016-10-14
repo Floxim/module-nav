@@ -10,6 +10,7 @@ return array(
     'actions' => array(
         '*list*' => array(
             'icon' => 'Nav',
+            'name' => 'Меню',
             'defaults' => array(
             	'!is_pass_through' => true,
                 '!limit' => 0,
@@ -76,7 +77,7 @@ return array(
         ),
         */
         'list_infoblock' => array(
-            'name' => fx::alang('Menu', 'component_section'),
+            'name' => 'Меню',
             'default_scope' => function() {
                 $ds = fx::env('site')->get('index_page_id').'-descendants-';
                 return $ds;
