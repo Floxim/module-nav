@@ -1,5 +1,4 @@
 <?php
-
 return array(
     'actions' => array(
         'show' => array(
