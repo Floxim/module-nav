@@ -32,7 +32,7 @@ return array(
                     'content_type' => 'infoblock',
                     'conditions' => array(
                         'controller' => array(
-                            fx::data('component', 'page')->getAllVariants()->getValues(function($ch) {
+                            fx::component('floxim.main.page')->getAllVariants()->getValues(function($ch) {
                                 return $ch['keyword'];
                             }),
                             'IN'

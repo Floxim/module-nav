@@ -38,16 +38,19 @@ class Controller extends \Floxim\Main\Page\Controller
     {
         $this->onItemsReady(function ($e) {
             $ctr = $e['controller'];
+            $extra_ib_ids = $ctr->getParam('extra_infoblocks', array());
             $items = $e['items'];
-            $extra_ib_ids = (array) $ctr->getParam('extra_infoblocks', array());
-            $extra_ibs = fx::data('infoblock')->where('id', $extra_ib_ids, 'in')->all();
-            foreach ($extra_ibs as $extra_ib) {
-                $extra_q = $extra_ib
-                                ->initController()
-                                ->getFinder()
-                                ->where('infoblock_id', $extra_ib['id']);
-                $extra_items = $extra_q->all();
-                $items->concat($extra_items);
+            if ($extra_ib_ids) {
+                $extra_ib_ids = (array)  $extra_ib_ids;
+                $extra_ibs = fx::data('infoblock')->where('id', $extra_ib_ids, 'in')->all();
+                foreach ($extra_ibs as $extra_ib) {
+                    $extra_q = $extra_ib
+                                    ->initController()
+                                    ->getFinder()
+                                    ->where('infoblock_id', $extra_ib['id']);
+                    $extra_items = $extra_q->all();
+                    $items->concat($extra_items);
+                }
             }
             if (!$ctr->getParam('is_fake')) {
                 $items->unique();
