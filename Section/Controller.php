@@ -198,4 +198,12 @@ class Controller extends \Floxim\Main\Page\Controller
         );
         return $res;
     }
+
+    /**
+     * No record blocks for floxim.nav.section
+     */
+    public function createRecordInfoblock($list_ib) 
+    {
+        return;
+    }
 }
