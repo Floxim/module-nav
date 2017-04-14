@@ -9,6 +9,7 @@ class Controller extends \Floxim\Main\Page\Controller
 
     public function doListInfoblock()
     {
+        /*
         $c_page = fx::env('page');
         if ($c_page) {
             $c_page_id = $c_page->get('id');
@@ -17,6 +18,15 @@ class Controller extends \Floxim\Main\Page\Controller
         } else {
             $path = array();
         }
+         * 
+         */
+        $path = fx::env('path')
+            ->find(
+                function($p) {
+                    return $p->isInstanceOf('floxim.main.page');
+                }
+            )->getValues('id');
+        
         $submenu_type = $this->getParam('submenu');
         $submenu_type = 'all';
         switch ($submenu_type) {
