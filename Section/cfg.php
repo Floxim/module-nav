@@ -10,7 +10,7 @@ return array(
     'actions' => array(
         '*list*' => array(
             'icon' => 'Nav',
-            'name' => 'Меню',
+            //'name' => 'Меню',
             'defaults' => array(
             	'!is_pass_through' => true,
                 '!limit' => 0,
